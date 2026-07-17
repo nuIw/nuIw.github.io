@@ -1,0 +1,221 @@
+# The Site Configuration
+
+# Import the theme
+theme: jekyll-theme-chirpy
+
+# The language of the webpage
+lang: ko-KR
+
+# Change to your timezone
+timezone: Asia/Seoul
+
+# jekyll-seo-tag settings
+# ↓ --------------------------
+
+title: Minwoo AI Blog
+
+tagline: 인공지능 논문과 연구 기록
+
+description: >-
+  인공지능, Video-LLM, 컴퓨터 비전,
+  PEFT와 관련된 논문 및 연구 내용을 기록합니다.
+
+# Fill in the protocol & hostname for your site.
+# Note that it does not end with a '/'.
+url: "https://nuiw.github.io"
+
+github:
+  username: nuIw
+
+twitter:
+  username:
+
+social:
+  # It will be displayed as the default author of the posts
+  # and the copyright owner in the footer.
+  name: 조민우
+  email:
+  fediverse_handle:
+  links:
+    - https://github.com/nuIw
+
+# Site Verification Settings
+webmaster_verifications:
+  google:
+  bing:
+  alexa:
+  yandex:
+  baidu:
+  facebook:
+
+# ↑ --------------------------
+# The end of jekyll-seo-tag settings
+
+# Web Analytics Settings
+analytics:
+  google:
+    id:
+  goatcounter:
+    id:
+  umami:
+    id:
+    domain:
+  matomo:
+    id:
+    domain:
+  cloudflare:
+    id:
+  fathom:
+    id:
+
+# Page views settings
+pageviews:
+  provider:
+
+# Prefer color scheme setting.
+#
+# Keep empty to follow the system preference.
+# Available options:
+#   light
+#   dark
+theme_mode:
+
+# The CDN endpoint for media resources.
+cdn:
+
+# The avatar on the sidebar.
+# Example:
+# avatar: /assets/img/avatar.png
+avatar:
+
+# The URL of the site-wide social preview image.
+# Example:
+# social_preview_image: /assets/img/social-preview.png
+social_preview_image:
+
+# Global switch for the table of contents in posts.
+toc: true
+
+actions:
+  # Display an "Edit this post" action on each post page.
+  edit_post:
+    enabled: false
+    url: ""
+    static_url: false
+
+comments:
+  # Global switch for the post-comment system.
+  # Available options:
+  # disqus
+  # utterances
+  # giscus
+  provider:
+
+  disqus:
+    shortname:
+
+  utterances:
+    repo:
+    issue_term:
+
+  giscus:
+    repo:
+    repo_id:
+    category:
+    category_id:
+    mapping:
+    strict:
+    input_position:
+    lang:
+    reactions_enabled:
+
+# Self-hosted static assets
+assets:
+  self_host:
+    enabled:
+    env:
+
+pwa:
+  enabled: true
+  cache:
+    enabled: true
+    deny_paths:
+      # - "/example"
+
+paginate: 10
+
+# The base URL of your site.
+# Keep empty for https://username.github.io.
+baseurl: ""
+
+# ------------ The following options are not recommended to be modified ------------
+
+kramdown:
+  footnote_backlink: "&#8617;&#xfe0e;"
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: highlight
+    span:
+      line_numbers: false
+    block:
+      line_numbers: true
+      start_line: 1
+
+collections:
+  tabs:
+    output: true
+    sort_by: order
+
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      comments: true
+      toc: true
+      permalink: /posts/:title/
+
+  - scope:
+      path: _drafts
+    values:
+      comments: false
+
+  - scope:
+      path: ""
+      type: tabs
+    values:
+      layout: page
+      permalink: /:title/
+
+sass:
+  style: compressed
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  profile: false
+  blanklines: false
+  ignore:
+    envs: [development]
+
+exclude:
+  - "*.gem"
+  - "*.gemspec"
+  - docs
+  - tools
+  - README.md
+  - LICENSE
+  - purgecss.js
+  - "*.config.js"
+  - "package*.json"
+
+jekyll-archives:
+  enabled: [categories, tags]
+  layouts:
+    category: category
+    tag: tag
+  permalinks:
+    tag: /tags/:name/
+    category: /categories/:name/

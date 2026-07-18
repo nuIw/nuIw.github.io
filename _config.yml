@@ -104,12 +104,8 @@ actions:
     static_url: false
 
 comments:
-  # Global switch for the post-comment system.
-  # Available options:
-  # disqus
-  # utterances
-  # giscus
-  provider:
+  # Enable giscus comments.
+  provider: giscus
 
   disqus:
     shortname:
@@ -119,15 +115,15 @@ comments:
     issue_term:
 
   giscus:
-    repo:
-    repo_id:
-    category:
-    category_id:
-    mapping:
-    strict:
-    input_position:
-    lang:
-    reactions_enabled:
+    repo: "nuIw/nuIw.github.io"
+    repo_id: "R_kgDOREQrWA"
+    category: "Announcements"
+    category_id: "DIC_kwDOREQrWM4DBc8L"
+    mapping: pathname
+    strict: 0
+    input_position: bottom
+    lang: ko
+    reactions_enabled: 1
 
 # Self-hosted static assets
 assets:

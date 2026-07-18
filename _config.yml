@@ -84,14 +84,10 @@ theme_mode:
 cdn:
 
 # The avatar on the sidebar.
-# Example:
-# avatar: /assets/img/avatar.png
-avatar:
+avatar: /assets/img/avatar.png
 
 # The URL of the site-wide social preview image.
-# Example:
-# social_preview_image: /assets/img/social-preview.png
-social_preview_image:
+social_preview_image: /assets/img/social-preview.png
 
 # Global switch for the table of contents in posts.
 toc: true

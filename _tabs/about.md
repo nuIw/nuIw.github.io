@@ -3,8 +3,6 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-# About Me
-
 인공지능을 공부하고 있는 대학생입니다.
 
 ## Research Interests

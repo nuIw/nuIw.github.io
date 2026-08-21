@@ -1,6 +1,6 @@
 ---
 title: Effective Batch Size와 Gradient Accumulation
-date: 2026-07-18 19:00:00 +0900
+date: 2026-07-19 19:00:00 +0900
 categories: [Development, Blog]
 tags: []
 description: Effective Batch Size, Gradient Accumulation

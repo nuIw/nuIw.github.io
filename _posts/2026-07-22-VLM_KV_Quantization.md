@@ -1,9 +1,9 @@
 ---
-title: Learning rate of LoRA variation method
-date: 2026-07-22 19:00:00 +0900
+title: VLM_KV_Quantization
+date: 2026-07-23 19:00:00 +0900
 categories: [Development, Blog]
 tags: []
-description: LoRA variation method들의 laerning rate에 따른 성능 차이
+description: VLM Quantization, KV Cache
 pin: false
 math: true
 mermaid: false

@@ -1,6 +1,6 @@
 ---
 title: Modern Transformer _ (3) Stability Tricks
-date: '2025-08-15T15:55:27+09:00'
+date: '2025-08-28T15:55:27+09:00'
 categories:
 - 공부 일기
 source_url: https://nulw.tistory.com/entry/%EA%B3%B5%EB%B6%80-%EC%9D%BC%EA%B8%B0-Modern-Transformer-3-Stability-Tricks

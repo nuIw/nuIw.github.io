@@ -1,6 +1,6 @@
 ---
 title: RoFormer:Enhanced transformer with Rotary Position Embedding(RoPE)
-date: '2025-08-17T16:19:32+09:00'
+date: '2025-09-15T16:19:32+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-RoFormerEnhanced-transformer-with-Rotary-Position-EmbeddingRoPE

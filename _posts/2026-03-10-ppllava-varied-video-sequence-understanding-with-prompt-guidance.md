@@ -1,6 +1,6 @@
 ---
 title: 'PPLLaVA: Varied Video Sequence Understanding With Prompt Guidance'
-date: '2025-08-31T15:33:30+09:00'
+date: '2026-03-10T15:33:30+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-PPLLaVA-Varied-Video-Sequence-Understanding-With-Prompt-Guidance

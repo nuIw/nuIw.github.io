@@ -1,6 +1,6 @@
 ---
 title: 'AdaLoRA: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning'
-date: '2025-08-21T23:10:34+09:00'
+date: '2026-01-22T23:10:34+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/AdaLoRA-Adaptive-Budget-Allocation-for-Parameter-Efficient-Fine-Tuning

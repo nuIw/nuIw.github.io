@@ -1,6 +1,6 @@
 ---
 title: Attention is All You Need
-date: '2025-08-01T16:15:08+09:00'
+date: '2025-05-09T16:15:08+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-Attention-is-all-you-need

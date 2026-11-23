@@ -1,6 +1,6 @@
 ---
 title: 'LoRA: Low-Rank Adaptation of Large Language Models'
-date: '2025-08-19T22:17:34+09:00'
+date: '2025-11-23T22:17:34+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/LoRA-Low-Rank-Adaptation-of-Large-Language-Models

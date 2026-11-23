@@ -1,6 +1,6 @@
 ---
 title: Tanh Works Better with Asymmetry
-date: '2025-08-07T17:13:20+09:00'
+date: '2025-08-02T17:13:20+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-Tanh-Works-Better-with-Asymmetry

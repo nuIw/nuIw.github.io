@@ -1,6 +1,6 @@
 ---
 title: 'MoE: Mixture of Experts'
-date: '2025-09-08T18:02:14+09:00'
+date: '2026-04-01T18:02:14+09:00'
 categories:
 - 공부 일기
 source_url: https://nulw.tistory.com/entry/MoE-Mixture-of-Experts

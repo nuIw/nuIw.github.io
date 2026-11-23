@@ -1,6 +1,6 @@
 ---
 title: GAN (Generative Adversarial Nets)
-date: '2025-08-05T11:59:23+09:00'
+date: '2025-06-27T11:59:23+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-GAN-Generative-Adversarial-Nets

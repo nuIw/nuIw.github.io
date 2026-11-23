@@ -1,6 +1,6 @@
 ---
 title: SRAM, DRAM, VRAM
-date: '2025-09-12T16:40:05+09:00'
+date: '2026-05-14T16:40:05+09:00'
 categories:
 - 공부 일기
 source_url: https://nulw.tistory.com/entry/%EA%B3%B5%EB%B6%80-%EC%9D%BC%EA%B8%B0-SRAM-DRAM-VRAM

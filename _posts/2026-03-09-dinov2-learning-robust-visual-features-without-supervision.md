@@ -1,6 +1,6 @@
 ---
 title: 'DINOv2: Learning Robust Visual Features without Supervision'
-date: '2025-08-29T12:36:25+09:00'
+date: '2026-03-09T12:36:25+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-DINOv2-Learning-Robust-Visual-Features-without-Supervision

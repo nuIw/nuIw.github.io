@@ -1,6 +1,6 @@
 ---
 title: SVM, Dual Problem
-date: '2025-08-03T22:07:01+09:00'
+date: '2025-05-31T22:07:01+09:00'
 categories:
 - 공부 일기
 source_url: https://nulw.tistory.com/entry/%EA%B3%B5%EB%B6%80-%EC%9D%BC%EA%B8%B0-SVM-Dual-Problem

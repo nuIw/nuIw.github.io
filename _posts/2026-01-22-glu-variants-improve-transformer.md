@@ -1,6 +1,6 @@
 ---
 title: GLU Variants Improve Transformer
-date: '2025-08-23T23:38:54+09:00'
+date: '2026-01-22T23:38:54+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-GLU-Variants-Improve-Transformer

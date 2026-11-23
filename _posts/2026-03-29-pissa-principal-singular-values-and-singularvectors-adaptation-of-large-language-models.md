@@ -1,6 +1,6 @@
 ---
 title: 'PiSSA: Principal Singular Values and SingularVectors Adaptation of Large Language Models'
-date: '2025-09-06T19:48:36+09:00'
+date: '2026-03-29T19:48:36+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-PiSSA-Principal-Singular-Values-and-SingularVectors-Adaptation-of-Large-Language-Models

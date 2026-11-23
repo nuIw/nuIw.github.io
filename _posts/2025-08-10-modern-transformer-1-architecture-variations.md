@@ -1,6 +1,6 @@
 ---
 title: Modern Transformer _ (1) Architecture Variations
-date: '2025-08-09T18:44:30+09:00'
+date: '2025-08-10T18:44:30+09:00'
 categories:
 - 공부 일기
 source_url: https://nulw.tistory.com/entry/%EA%B3%B5%EB%B6%80-%EC%9D%BC%EA%B8%B0-Modern-Transformer-1-Architecture-Variations

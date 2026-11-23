@@ -1,6 +1,6 @@
 ---
 title: 'GraLoRA: Granular Low-Rank Adaptation for Parameter-Efficient Fine-Tuning'
-date: '2025-08-25T00:37:30+09:00'
+date: '2026-02-16T00:37:30+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/GraLoRA-Granular-Low-Rank-Adaptation-for-Parameter-Efficient-Fine-Tuning

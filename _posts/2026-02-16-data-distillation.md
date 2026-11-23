@@ -1,6 +1,6 @@
 ---
 title: Data Distillation
-date: '2025-08-27T01:25:21+09:00'
+date: '2026-02-16T01:25:21+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/Paper-Review-Data-Distillation

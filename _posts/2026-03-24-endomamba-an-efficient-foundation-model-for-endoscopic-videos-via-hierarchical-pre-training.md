@@ -1,6 +1,6 @@
 ---
 title: 'EndoMamba: An Efficient Foundation Model for Endoscopic Videos via Hierarchical Pre-training'
-date: '2025-09-04T16:06:34+09:00'
+date: '2026-03-24T16:06:34+09:00'
 categories:
 - Paper Review
 source_url: https://nulw.tistory.com/entry/EndoMamba-An-Efficient-Foundation-Model-for-Endoscopic-Videos-via-Hierarchical-Pre-training

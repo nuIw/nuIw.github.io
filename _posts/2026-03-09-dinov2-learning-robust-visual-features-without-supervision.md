@@ -20,19 +20,19 @@ DINO라는 이름은 'Distillation with NO labels'에서 온 말입니다. 즉, 
 
 크게 세 가지를 주목해야 합니다.
 
-<strong>1\. Loss function의 진화</strong>
+<strong>1&#46; Loss function의 진화</strong>
 
 ![DINOv2의 loss function](/assets/img/tistory/17/002.png)
 
 DINOv2의 loss function
 
-<strong>L\_DINO</strong>는 기존 DINO 모델에서 view consistency를 유지하는 image level loss입니다.<br><strong>L\_iBOT</strong>은 패치 단위의 Cross-Entropy를 계산하는 Masked Patch Prediction Loss입니다. student는 일부가 masking된 이미지를 받고 teacher는 원본 이미지를 받아서 서로의 patch token을 매칭합니다. 기존 knowledge distilation에서는 pre-trained된 모델이 teacher가 되었던 것과 달리 DINO와 DINOv2에서는 student 모델의 EMA를 적용시킨 네트워크가 teacher가 되어 self-distillation 방식을 사용합니다.<br><strong>L\_koleo</strong>는 벡터들이 임베딩 공간에 균일하게 분포됨과 동시에 유사한 feature는 가까이 위치하도록 합니다.
+<strong>L&#95;DINO</strong>는 기존 DINO 모델에서 view consistency를 유지하는 image level loss입니다.<br><strong>L&#95;iBOT</strong>은 패치 단위의 Cross-Entropy를 계산하는 Masked Patch Prediction Loss입니다. student는 일부가 masking된 이미지를 받고 teacher는 원본 이미지를 받아서 서로의 patch token을 매칭합니다. 기존 knowledge distilation에서는 pre-trained된 모델이 teacher가 되었던 것과 달리 DINO와 DINOv2에서는 student 모델의 EMA를 적용시킨 네트워크가 teacher가 되어 self-distillation 방식을 사용합니다.<br><strong>L&#95;koleo</strong>는 벡터들이 임베딩 공간에 균일하게 분포됨과 동시에 유사한 feature는 가까이 위치하도록 합니다.
 
-<strong>2\. Sinkhorn-Knopp Centering 및 엔지니어링 최적화</strong>
+<strong>2&#46; Sinkhorn-Knopp Centering 및 엔지니어링 최적화</strong>
 
 기존 DINO의 단순한 Centering/Sharpening을 넘어 Sinkhorn-Knopp 알고리즘을 도입해 Batch 내 Feature Uniformity를 정교하게 제어했습니다. 또한, Positional Embedding을 Untying하고, FFN의 activation function을 SwiGLU로 교체했으며, FlashAttention과 FSDP를 도입해 메모리 효율을 3배 이상, 속도를 2배 이상 높였습니다.
 
-<strong>3\. Data Curation(양질의 정보를 선별) pipeline</strong>
+<strong>3&#46; Data Curation(양질의 정보를 선별) pipeline</strong>
 
 Uncurated 웹 데이터(수십억 장)에서 고품질 이미지를 추출하기 위해, ImageNet 등 Curated 데이터를 초기 DINO 모델로 임베딩한 후, Cosine Similarity 기반의 k-NN 검색을 통해 유사 분포의 데이터만 필터링한 LVD-142M 데이터셋을 자동 구축했습니다.
 
@@ -83,10 +83,10 @@ data processing pipeline
 
 방식은 다음 pipeline을 따릅니다.
 
-- <strong>\[Data sources\]</strong> ImageNet처럼 품질이 좋다고 확신할 수 있는 소규모의 정제된 데이터셋을 준비하고, 이걸 기준점(Anchor)으로 삼습니다. (ImageNet-1k, ImageNet-22k, Google Landmarks etc.) 기준점으로 삼은 데이터와 무작위로 끌어온 12억장의 이미지 데이터들을 embedding vector로 변환하여 동일한 vector space로 보냅니다. <strong>이 때 사전학습된 ViT 모델을 사용하여 이미지를 벡터로 변환합니다. → 왜?</strong> 픽셀 단위로는 이미지의 의미를 비교할 수 없기 때문입니다. 강아지 사진을 회전시키거나 색감만 바꿔도 픽셀 값은 완전히 달라지지만, ViT-H/16이 뽑아낸 Feature Vector는 여전히 강아지라는 의미적 위치를 유지합니다.
-- <strong>\[De-Duplication\]</strong> 정리되지 않은 데이터에 SSCD(Self-Supervised descriptor for image Copy Detection)의 복사 감지 파이프라인을 적용하고 중복에 가까운 이미지를 제거합니다.너무 똑같은 이미지가 많으면 학습 효율이 떨어져 벡터가 거의 겹치는 이미지들은 하나만 남기고 지웁니다. 또한 이 작업에 사용된 모든 벤치마크의 test 또는 validation set에 포함된 거의 중복된 이미지를 제거합니다. 여기서 12억장의 데이터가 7억 4천만장으로 줄어듭니다. naive한 clustering 방식을 사용하면 주요한 특징만 남고 다양성이 부족해질 수 있는 문제점이 있기 때문에 일단 7억 4천만장의 데이터를 K-means로 naive하게 clustering하고 나서 기준점으로 삼은 데이터와 코사인 유사도가 높은 데이터들은 남기고 유사도가 낮은 것들은 탈락(Discard)시킵니다.
-- <strong>\[Retrieval\]</strong> ⇒ 특정 cluster에서만 데이터를 뽑게되는 over sampling 문제가 발생할 수 있고, 이로 인해 다른 cluster의 특징을 반영하지 못하는 under-sampling의 문제도 같이 야기될 수 있습니다. 그래서 조건부로 데이터를 retrieval합니다.<br>기준점 데이터(anchor)가 충분히 많은 경우, 각 기준점 이미지 당 가장 유사한 이미지 N개만 추가로 뽑아옵니다.(논문에서는 N\=4로 설정)<br>기준점 데이터(anchor)가 부족한 경우, 특정 cluster에 몰릴 가능성이 높기 때문에 특정 클래스의 비중이 작아질 수 있습니다. 그래서 그 기준점이 속한 클러스터 전체에서 넉넉하게 sampling합니다.
-- <strong>\[Implementation Details\] </strong>여기에서 De-duplication과 Retrieval 단계는 최근접 임베딩을 효율적으로 인덱싱하고 배치 검색하기 위해서 Faiss(Facebook AI Similarity Search)라는 벡터 검색 라이브러리를 사용합니다.하지만 Faiss를 사용하게 되면 책의 Index처럼 벡터 공간을 여러 구역으로 나눠놓고 쿼리가 들어오면 해당 구역만 찾습니다. 또한 벡터의 정밀도를 살짝 낮춰 압축 저장함으로써 메모리 사용량을 줄이고 검색 속도를 높입니다. 그리고 이 모든 과정을 CPU가 아닌 GPU에서 병렬 처리를 합니다. V100(32GB) 8장씩 총 20 노드를 사용해서, 즉 160장의 V100 32GB로 2일 소요되었습니다. 매우 큰 고차원 벡터(이미지 임베딩)가 있을 때, K-NN을 기반으로 이 벡터와 비슷한 이미지를 찾아달라고 하면 계산량이 너무 많아서 몇 달이 걸릴 수 있습니다.
+- <strong>&#91;Data sources&#93;</strong> ImageNet처럼 품질이 좋다고 확신할 수 있는 소규모의 정제된 데이터셋을 준비하고, 이걸 기준점(Anchor)으로 삼습니다. (ImageNet-1k, ImageNet-22k, Google Landmarks etc.) 기준점으로 삼은 데이터와 무작위로 끌어온 12억장의 이미지 데이터들을 embedding vector로 변환하여 동일한 vector space로 보냅니다. <strong>이 때 사전학습된 ViT 모델을 사용하여 이미지를 벡터로 변환합니다. → 왜?</strong> 픽셀 단위로는 이미지의 의미를 비교할 수 없기 때문입니다. 강아지 사진을 회전시키거나 색감만 바꿔도 픽셀 값은 완전히 달라지지만, ViT-H/16이 뽑아낸 Feature Vector는 여전히 강아지라는 의미적 위치를 유지합니다.
+- <strong>&#91;De-Duplication&#93;</strong> 정리되지 않은 데이터에 SSCD(Self-Supervised descriptor for image Copy Detection)의 복사 감지 파이프라인을 적용하고 중복에 가까운 이미지를 제거합니다.너무 똑같은 이미지가 많으면 학습 효율이 떨어져 벡터가 거의 겹치는 이미지들은 하나만 남기고 지웁니다. 또한 이 작업에 사용된 모든 벤치마크의 test 또는 validation set에 포함된 거의 중복된 이미지를 제거합니다. 여기서 12억장의 데이터가 7억 4천만장으로 줄어듭니다. naive한 clustering 방식을 사용하면 주요한 특징만 남고 다양성이 부족해질 수 있는 문제점이 있기 때문에 일단 7억 4천만장의 데이터를 K-means로 naive하게 clustering하고 나서 기준점으로 삼은 데이터와 코사인 유사도가 높은 데이터들은 남기고 유사도가 낮은 것들은 탈락(Discard)시킵니다.
+- <strong>&#91;Retrieval&#93;</strong> ⇒ 특정 cluster에서만 데이터를 뽑게되는 over sampling 문제가 발생할 수 있고, 이로 인해 다른 cluster의 특징을 반영하지 못하는 under-sampling의 문제도 같이 야기될 수 있습니다. 그래서 조건부로 데이터를 retrieval합니다.<br>기준점 데이터(anchor)가 충분히 많은 경우, 각 기준점 이미지 당 가장 유사한 이미지 N개만 추가로 뽑아옵니다.(논문에서는 N&#61;4로 설정)<br>기준점 데이터(anchor)가 부족한 경우, 특정 cluster에 몰릴 가능성이 높기 때문에 특정 클래스의 비중이 작아질 수 있습니다. 그래서 그 기준점이 속한 클러스터 전체에서 넉넉하게 sampling합니다.
+- <strong>&#91;Implementation Details&#93; </strong>여기에서 De-duplication과 Retrieval 단계는 최근접 임베딩을 효율적으로 인덱싱하고 배치 검색하기 위해서 Faiss(Facebook AI Similarity Search)라는 벡터 검색 라이브러리를 사용합니다.하지만 Faiss를 사용하게 되면 책의 Index처럼 벡터 공간을 여러 구역으로 나눠놓고 쿼리가 들어오면 해당 구역만 찾습니다. 또한 벡터의 정밀도를 살짝 낮춰 압축 저장함으로써 메모리 사용량을 줄이고 검색 속도를 높입니다. 그리고 이 모든 과정을 CPU가 아닌 GPU에서 병렬 처리를 합니다. V100(32GB) 8장씩 총 20 노드를 사용해서, 즉 160장의 V100 32GB로 2일 소요되었습니다. 매우 큰 고차원 벡터(이미지 임베딩)가 있을 때, K-NN을 기반으로 이 벡터와 비슷한 이미지를 찾아달라고 하면 계산량이 너무 많아서 몇 달이 걸릴 수 있습니다.
 
 여기까지의 과정을 통해서 12억만개의 Uncurated 이미지 데이터를 1억 4200만 개의 이미지 corpus로 수집했습니다. 이 데이터셋을 LVD(Large scale Visual Dataset)-142M dataset이라고 부릅니다.
 
@@ -146,7 +146,7 @@ softmax
 
 self-distillation의 trivial solution(자명한 해) collapse 위험성
 
-이렇게 양쪽의 Neural Network가 모두 동일한 gradient를 받으면 가장 쉬운 해는 둘 다 constant fuction이 되는 것입니다. 이렇게 되면 loss \= 0이지만 아무것도 학습하지 못한 상태가 된다는 것입니다.<br>따라서 teacher와 student의 정규화를 다른 것을 사용함으로 인해서 trivial solution 문제를 회피해 모델이 collapse되는 현상을 방지하겠다는 것입니다.
+이렇게 양쪽의 Neural Network가 모두 동일한 gradient를 받으면 가장 쉬운 해는 둘 다 constant fuction이 되는 것입니다. 이렇게 되면 loss &#61; 0이지만 아무것도 학습하지 못한 상태가 된다는 것입니다.<br>따라서 teacher와 student의 정규화를 다른 것을 사용함으로 인해서 trivial solution 문제를 회피해 모델이 collapse되는 현상을 방지하겠다는 것입니다.
 
 ### <u>3.5 KoLeo regularizer</u>
 
@@ -191,7 +191,7 @@ Segmentaion이나 Detection 같은 downstream task는 작은 물체를 감지해
 
 그래서 DINOv2에서는 ViT-g의 구조를 기존 설계와 다르게 합니다.
 
-기존에는 1408 dimension \+ 16 heads (head당 88 dimension)이지만, DINOv2에서는 1536 dimension \+ 24 heads (head 당 64 dimension)을 사용합니다.
+기존에는 1408 dimension &#43; 16 heads (head당 88 dimension)이지만, DINOv2에서는 1536 dimension &#43; 24 heads (head 당 64 dimension)을 사용합니다.
 
 하지만 ‘이 구조 자체에 의한 정확도의 큰 차이는 없었다’라고 밝힙니다. 바로 DINOv2의 구조에 의한 정확도 향상이며 자체 구현한 FlashAttention은 메모리 사용량과 속도의 개선을 보여준 것이지 이로 인해 성능이 향상된 것이 아님을 확실히 하기 위함인 것입니다.
 
@@ -227,7 +227,7 @@ stochastic depth란 무엇일까요? 바로 Residual Block을 확률적으로 dr
 2. 모델의 용량이 증가하는 것이기 때문에 훈련 데이터에 대한 상대적인 overfitting 문제 심화
 3. Layer를 1000층 이상 쌓게 되면 Vanishing Gradient 문제가 발생
 
-그래서 F(x)에 m \= 0으로 skip하게 되면 가중치 업데이트를 건너뛰고 입력값을 그대로 다음 층으로 넘기게 됩니다.
+그래서 F(x)에 m &#61; 0으로 skip하게 되면 가중치 업데이트를 건너뛰고 입력값을 그대로 다음 층으로 넘기게 됩니다.
 
 ‘학습 시’에는 일부 layer를 skip해서 효율을 높이고, ‘추론 시’에는 본래의 깊은 네트워크를 사용해서 높은 성능을 낸다는 것이 목표입니다.
 
@@ -245,7 +245,7 @@ stochastic depth란 무엇일까요? 바로 Residual Block을 확률적으로 dr
 
 결국 ‘실질적으로도 연산을 건너뛰는’ skip computation에 대한 내용을 다루게 됩니다.
 
-m \= 0.6이게 되면, 40%의 Block은 생략이 되게 됩니다. (결국 모델의 층이 깊은 구조에서의 단점을 상쇄하기 위함인 것이고, 층이 얕은 모델에서 사용하면 오히려 I/O overhead가 발생할 수 있습니다)
+m &#61; 0.6이게 되면, 40%의 Block은 생략이 되게 됩니다. (결국 모델의 층이 깊은 구조에서의 단점을 상쇄하기 위함인 것이고, 층이 얕은 모델에서 사용하면 오히려 I/O overhead가 발생할 수 있습니다)
 
 ### <u>Fully-Sharded Data Parallel (FSDP)</u>
 

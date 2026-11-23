@@ -32,7 +32,7 @@ ReLU
 
 일반적으로 Activation Function의 앞 뒤로 각각 한 번씩 총 ‘두 번’의 선형 변환을 거치게 됩니다.
 
-우선 입력 값 x를 W\_1와 b\_1를 통해서 선형 변환을 하고 그 결과를 ReLU에 집어넣어 연산 결과를 element 별로 적용한 다음에 다시 W\_2와 b\_2로 2차 선형 변환을 하게 됩니다.
+우선 입력 값 x를 W&#95;1와 b&#95;1를 통해서 선형 변환을 하고 그 결과를 ReLU에 집어넣어 연산 결과를 element 별로 적용한 다음에 다시 W&#95;2와 b&#95;2로 2차 선형 변환을 하게 됩니다.
 
 Linear → Activation → Linear의 과정을 거치는 것입니다.
 
@@ -48,7 +48,7 @@ T5(Text-to-Text Transfer Transformer, Google)의 경우는 ReLU의 두 번 선�
 
 Transformer는 기본적으로 Attention 후에 정규화를 하는 과정을 담고 있습니다. 이 정규화 하는 과정에서 bias의 역할을 하는 과정이 있기 때문에 bias항을 추가하는게 모델의 파라미터 수만 늘게 되어 대규모 모델에서는 효율성 측면에서 빼버리는 게 훨씬 이득이기 때문입니다. 원래 두 번의 선형 변환에서 가중치 두 개와 bias 두 개로 총 네 개의 파라미터가 있었지만 bias항을 두 개를 줄여버림으로 인해서 절반으로 줄게 되는 효율을 얻을 수 있게 됩니다.
 
-하지만 ReLU는 Dead Nerueon 문제와 x \= 0에서 미분이 불가능하다는 점에서 명백한 단점을 가지고 있습니다. ReLU는 2011년에 제시된 아이디어이기 때문에 이후에도 Activation Function에 대한 여러 아이디어가 제시되었습니다.
+하지만 ReLU는 Dead Nerueon 문제와 x &#61; 0에서 미분이 불가능하다는 점에서 명백한 단점을 가지고 있습니다. ReLU는 2011년에 제시된 아이디어이기 때문에 이후에도 Activation Function에 대한 여러 아이디어가 제시되었습니다.
 
 2016년에는 GELU, 2017년에는 SwiGLU라는 주요한 아이디어가 나왔습니다.
 
@@ -64,11 +64,11 @@ Transformer는 기본적으로 Attention 후에 정규화를 하는 과정을 �
 
 ![](/assets/img/tistory/14/005.png)
 
-T5 Codebase임을 가정하고 bias항은 모두 제외한 것입니다. 기존 1차, 2차 선형변환의 형태는 그대로 가져갑니다. 하지만 입력값을 두 개로 나누었고 가중치의 개수도 3개로 늘어났습니다. 일단 입력값을 x\_a와 x\_b로 나누고 각각 가중치를 다르게 곱하기 때문에 1차 선형 변환 때부터 가중치가 두 개가 발생합니다. 이후 2차 선형변환에서 다른 가중치를 곱하기 때문에 다른 활성화 함수들은 1차 2차 선형 변환 과정에서 총 가중치가 2개이지만 GLU 계열들은 총 가중치가 3개입니다. 만약 모델의 학습 차원을 그대로 유지하면 가중치가 2개에서 3개로 되었으니 연산량이 3/2배 늘게 되지만 모델 학습 차원을 2/3으로 줄이면서 모델의 연산량은 그대로 유지한다라는 점을 논문에서 짚고 넘어가고 있습니다.
+T5 Codebase임을 가정하고 bias항은 모두 제외한 것입니다. 기존 1차, 2차 선형변환의 형태는 그대로 가져갑니다. 하지만 입력값을 두 개로 나누었고 가중치의 개수도 3개로 늘어났습니다. 일단 입력값을 x&#95;a와 x&#95;b로 나누고 각각 가중치를 다르게 곱하기 때문에 1차 선형 변환 때부터 가중치가 두 개가 발생합니다. 이후 2차 선형변환에서 다른 가중치를 곱하기 때문에 다른 활성화 함수들은 1차 2차 선형 변환 과정에서 총 가중치가 2개이지만 GLU 계열들은 총 가중치가 3개입니다. 만약 모델의 학습 차원을 그대로 유지하면 가중치가 2개에서 3개로 되었으니 연산량이 3/2배 늘게 되지만 모델 학습 차원을 2/3으로 줄이면서 모델의 연산량은 그대로 유지한다라는 점을 논문에서 짚고 넘어가고 있습니다.
 
 우선 GLU 계열의 함수들이기 때문에 우선적으로 GLU가 어떤 것인지에 대해 먼저 알아보겠습니다.
 
-### <u><strong>\[GLU / Gated Linear Unit\]</strong></u>
+### <u><strong>&#91;GLU / Gated Linear Unit&#93;</strong></u>
 
 ![](/assets/img/tistory/14/006.png)
 
@@ -76,41 +76,41 @@ T5 Codebase임을 가정하고 bias항은 모두 제외한 것입니다. 기존 
 
 ![](/assets/img/tistory/14/007.png)
 
-입력의 첫 번째 절반을 a, 입력의 두 번째 절반을 b라고 두었을 때, b를 sigmoid activation function 안에 집어넣어서 Gate처럼 동작하게 합니다. 이를 통해서 정보의 흐름을 조절하고 모델이 더 유연하게 학습할 수 있도록 만들어줍니다. element wise 곱을 활용하여 원소별로 얼마나 정보를 통과시킬지 조절하는 방식으로 Gating을 하게 됩니다. 비선형성 \+ 선형성을 모두 가질 수 있는 특성을 띠기 때문에 표현력이 높은 게 장점이고 element wise 곱을 사용해 GPU 병렬연산에 효율적이어서 속도가 빠르다는 특징이 있습니다.
+입력의 첫 번째 절반을 a, 입력의 두 번째 절반을 b라고 두었을 때, b를 sigmoid activation function 안에 집어넣어서 Gate처럼 동작하게 합니다. 이를 통해서 정보의 흐름을 조절하고 모델이 더 유연하게 학습할 수 있도록 만들어줍니다. element wise 곱을 활용하여 원소별로 얼마나 정보를 통과시킬지 조절하는 방식으로 Gating을 하게 됩니다. 비선형성 &#43; 선형성을 모두 가질 수 있는 특성을 띠기 때문에 표현력이 높은 게 장점이고 element wise 곱을 사용해 GPU 병렬연산에 효율적이어서 속도가 빠르다는 특징이 있습니다.
 
 하지만 Gating을 할 때 Sigmoid 함수를 사용하기 때문에 0에 가까운 수가 곱해지면 결국에는 Vanishing Gradient 문제를 피할 수는 없습니다.
 
-### <u><strong>\[Bilinear\]</strong></u>
+### <u><strong>&#91;Bilinear&#93;</strong></u>
 
 ![](/assets/img/tistory/14/008.png)
 
 GLU에서 입력 절반을 나눈다는 아이디어는 공유하지만 sigmoid를 통해 gating하는 효과를 제거한 버전입니다. sigmoid를 안 쓰기 때문에 연산량 측면에서 단순하다는 장점은 있지만, Gating의 효과를 볼 수 없기 때문에 정보의 중요성에 대한 파악이 어렵고 따라서 성능이 좋지 않습니다. 거의 주목을 받지 못한 Activation Function입니다.
 
-### <u><strong>\[ReGLU / Rectified Gated Linear Unit\]</strong></u>
+### <u><strong>&#91;ReGLU / Rectified Gated Linear Unit&#93;</strong></u>
 
 ![](/assets/img/tistory/14/009.png)
 
 GLU에서 입력 절반을 나눈다는 아이디어는 공유하지만 sigmoid 대신에 ReLU를 사용한 것입니다. sigmoid와 다르게 우선 비선형성을 부여할 수 있다는 점에서 제시한 아이디어이지만, 결국 ReLU도 극복하지 못한 한계인 Dead Nuereon 문제를 그대로 가지고 갔기 때문에 자연스럽게 주목받지 못하는 Activation Function이 되었습니다.
 
-### <u><strong>\[GeGLU / Gaussian Error Gating Linear Unit\]</strong></u>
+### <u><strong>&#91;GeGLU / Gaussian Error Gating Linear Unit&#93;</strong></u>
 
 ![](/assets/img/tistory/14/010.png)
 
 2016년에 제시된 GELU를 변형시킨 모델입니다. 단지 Gating하는 Sigmoid를 GELU로 대체한 것입니다.
 
-### <u><strong>\[GeLU / Gaussian error Linear Unit\]</strong></u>
+### <u><strong>&#91;GeLU / Gaussian error Linear Unit&#93;</strong></u>
 
-이름에서부터 알 수 있듯, Gaussian정규분포의 누적분포함수(CDF)를 활용한 Linear Unit 함수입니다. 값이 클수록 높은 중요도로 판단해서 CDF에 큰 x값을 넣었을 때 1에 가까운 값이 되고, 해당 뉴런이 강하게 활성화되는 효과를 얻을 수 있습니다. 또한 x \= 0인 지점에서 미분이 가능하기 때문에 매끄러운 학습이 가능해져 Gradient 흐름도 안정되고  일반화 성능에도 긍정적인 영향을 끼칠 수 있습니다. 하지만 확률 및 랜덤변수 강의에서도 다루는 erf(x) 함수를 통해서 값을 구해야 하며 이를 테일러 급수를 사용해 값을 근사하는데, 이로 인한 연산량이 많다는 문제점이 있습니다. 단순히 성능 대비 너무 많은 연산량으로 인해 지금은 사용하지 않는 Activation Function이 되었습니다.
+이름에서부터 알 수 있듯, Gaussian정규분포의 누적분포함수(CDF)를 활용한 Linear Unit 함수입니다. 값이 클수록 높은 중요도로 판단해서 CDF에 큰 x값을 넣었을 때 1에 가까운 값이 되고, 해당 뉴런이 강하게 활성화되는 효과를 얻을 수 있습니다. 또한 x &#61; 0인 지점에서 미분이 가능하기 때문에 매끄러운 학습이 가능해져 Gradient 흐름도 안정되고  일반화 성능에도 긍정적인 영향을 끼칠 수 있습니다. 하지만 확률 및 랜덤변수 강의에서도 다루는 erf(x) 함수를 통해서 값을 구해야 하며 이를 테일러 급수를 사용해 값을 근사하는데, 이로 인한 연산량이 많다는 문제점이 있습니다. 단순히 성능 대비 너무 많은 연산량으로 인해 지금은 사용하지 않는 Activation Function이 되었습니다.
 
 그렇다면 GeGLU는 GELU를 사용한 건데 무슨 유의미한 차이가 있을까요?
 
-바로 Sigmoid는 \+3 이상 또는 -3 이하일 경우 거의 0이나 1에 수렴해서 Vanishing Gradient 문제가 발생한다는 점을 주목해야합니다. 반면에 GELU는 입력이 음수여도 완전히 0이 되지 않고, 입력이 클수록 거의 x에 가까워집니다. 이런 점에서 sigmoid 함수와는 확연하게 다른 특징을 띠고 있기 때문에, 사용했던 것입니다.
+바로 Sigmoid는 &#43;3 이상 또는 -3 이하일 경우 거의 0이나 1에 수렴해서 Vanishing Gradient 문제가 발생한다는 점을 주목해야합니다. 반면에 GELU는 입력이 음수여도 완전히 0이 되지 않고, 입력이 클수록 거의 x에 가까워집니다. 이런 점에서 sigmoid 함수와는 확연하게 다른 특징을 띠고 있기 때문에, 사용했던 것입니다.
 
 GeGLU가 GELU와 다른 점은 바로 Gating을 사용했다는 점인데, Gate가 비선형성을 추가해줌과 동시에 불필요한 channel을 억제해서 학습 용량, 즉 파라미터의 개수에 대한 조절이 가능하다는 특징을 가지고 있습니다.
 
 하지만 이 역시 ‘너무 많은 연산량’이라는 문제는 결국 해결하지 못하기 때문에 주목받지 못하는 Activation Function이 되었습니다.
 
-### <u><strong>\[SwiGLU / Swish Gated Linear Unit\]</strong></u>
+### <u><strong>&#91;SwiGLU / Swish Gated Linear Unit&#93;</strong></u>
 
 ![](/assets/img/tistory/14/011.png)
 
@@ -120,7 +120,7 @@ GeGLU가 GELU와 다른 점은 바로 Gating을 사용했다는 점인데, Gate�
 
 ![](/assets/img/tistory/14/012.png)
 
-Swish는 Swish(x) \= x σ(x)입니다. 단순히 sigmoid 함수에 x를 곱한 형태입니다.
+Swish는 Swish(x) &#61; x σ(x)입니다. 단순히 sigmoid 함수에 x를 곱한 형태입니다.
 
 GELU와 장점은 동일하게 가져갑니다. 아무리 음수라고 하더라도 upper bound가 0이지만 절대 0이 되지 않기 때문에 Dead Neureon 문제를 해결했고, 모든 구간에서 미분이 가능합니다.
 

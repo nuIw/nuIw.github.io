@@ -13,7 +13,7 @@ source_url: https://nulw.tistory.com/entry/Paper-Review-Attention-is-All-You-Nee
 [![](/assets/img/tistory/9/002.jpg)](/posts/attention-is-all-you-need/)
 
 
-[\[Paper Review\] Attention is All You Need](/posts/attention-is-all-you-need/)
+[&#91;Paper Review&#93; Attention is All You Need](/posts/attention-is-all-you-need/)
 
 [Attention is All You Need 논문을 리뷰합니다.RNN을 기반으로 한 Seq2Seq 모델은 순차적인 연산이라는 한계에 부딪혀 성능 향상에 제약이 있습니다. 하지만 해당 논문에서 제안한 Transformer 모델은 self-atten](/posts/attention-is-all-you-need/)
 
@@ -23,7 +23,7 @@ source_url: https://nulw.tistory.com/entry/Paper-Review-Attention-is-All-You-Nee
 
 ---
 
-#### <strong>1\. 왜 RNN은 태생적으로 한계가 존재할 수 밖에 없는가?</strong>
+#### <strong>1&#46; 왜 RNN은 태생적으로 한계가 존재할 수 밖에 없는가?</strong>
 
 ![Recurrent Neural Network(RNN)의 기본 구조](/assets/img/tistory/9/003.png)
 
@@ -45,9 +45,9 @@ RNN의 Gradient 구하는 방법
 
 ---
 
-#### <strong>2\. Transformer의 핵심인 Attention을 RNN에 적용했음에도 왜 RNN은 죽은 Network가 되었을까?</strong>
+#### <strong>2&#46; Transformer의 핵심인 Attention을 RNN에 적용했음에도 왜 RNN은 죽은 Network가 되었을까?</strong>
 
-태생적인 문제점은 바뀌지 않았기 때문입니다. 기존의 RNN은 encoder에서 decoder로 넘어갈 때 encoder의 마지막 시점의 hidden state vector에 모든 문장 정보를 다 담아서 전달하는 구조였습니다. 그래서 ' <strong>1\. 왜 RNN은 태생적으로 한계가 존재할 수 밖에 없는가?'</strong>에서 다뤘듯이 마지막 시점의 hidden state vector에는 초반 hidden state에 대한 정보가 거의 존재하지 않습니다. 그렇기 때문에 attention 구조를 도입해서 초반 hidden state에 대한 정보를 직접 반영할 수 있도록 하자는 것이 아이디어입니다.
+태생적인 문제점은 바뀌지 않았기 때문입니다. 기존의 RNN은 encoder에서 decoder로 넘어갈 때 encoder의 마지막 시점의 hidden state vector에 모든 문장 정보를 다 담아서 전달하는 구조였습니다. 그래서 ' <strong>1&#46; 왜 RNN은 태생적으로 한계가 존재할 수 밖에 없는가?'</strong>에서 다뤘듯이 마지막 시점의 hidden state vector에는 초반 hidden state에 대한 정보가 거의 존재하지 않습니다. 그렇기 때문에 attention 구조를 도입해서 초반 hidden state에 대한 정보를 직접 반영할 수 있도록 하자는 것이 아이디어입니다.
 
 하지만 encoder가 RNN인 이상 태생적으로 후반부 hidden state는 초반 hidden state의 정보가 많이 희석된 상태이기 때문에 중요한 정보임에도 가중치가 많이 부여되지 않을 것이라는 한계가 있는 것입니다.
 
@@ -57,7 +57,7 @@ RNN의 Gradient 구하는 방법
 
 LSTM의 경우 Forget, Input, Output 총 3개의 Gate가 존재합니다. Forget은 이전 hidden state에서 어떤 정보를 버릴지, Input은 현재 입력 중에서 어떤 정보를 기억할지, Output은 현재 cell state에서 어떤 정보를 출력할지 결정합니다. LSTM은 cell이라는 장기 기억 state가 존재합니다.
 
-GRU는 Update, Reset 총 2개의 Gate가 존재합니다. Update는 이전 정보를 얼마나 유지할지 결정합니다. (LSTM에서의 Forget \+ Input 느낌) Reset은 현재 입력을 얼마나 이전 hidden state와 결합할지 결정합니다. LSTM과 다르게 장기 기억을 위한 cell state가 없습니다. 그래서 LSTM의 Output Gate의 역할을 할 필요가 없습니다. Update Gate가 장기기억의 역할을 하게 됩니다.
+GRU는 Update, Reset 총 2개의 Gate가 존재합니다. Update는 이전 정보를 얼마나 유지할지 결정합니다. (LSTM에서의 Forget &#43; Input 느낌) Reset은 현재 입력을 얼마나 이전 hidden state와 결합할지 결정합니다. LSTM과 다르게 장기 기억을 위한 cell state가 없습니다. 그래서 LSTM의 Output Gate의 역할을 할 필요가 없습니다. Update Gate가 장기기억의 역할을 하게 됩니다.
 
 장기기억을 하기 위한 장치를 설정했지만, 이는 결국 직접 dot product 과정을 통해 거리의 제약을 받지 않는 Tranformer에 비해 자유도가 떨어질 뿐더러 근본적인 Vanishing Gradient 문제는 해결할 수 없습니다.
 
@@ -65,21 +65,21 @@ Transformer의 SOTA 성능에 제일 근접했던 것이 ConvS2S인데, CNN 기�
 
 ---
 
-#### <strong>3\. Transformer의 Model Architecture 파고들기</strong>
+#### <strong>3&#46; Transformer의 Model Architecture 파고들기</strong>
 
 ![](/assets/img/tistory/9/007.png)
 
 ---
 
-<strong><br>3-1) Input Embedding</strong><br>입력 값이 들어오면 우선 단어별로 Tokenization(토큰화)를 합니다. → Token들을 가지고 37,000개의 subword vocabulary와 매칭시켜 정수 인덱스를 부여합니다. 이 때 37,000개의 vocabulary에 포함되지 않는 token의 경우 \<unk\>라는 인덱스가 부여됩니다.   → 이 정수 인덱스를 각 token마다 512차원으로 확장시킵니다. 이 512차원의 행렬이 가중치로 작동하기 때문에 처음에는 무작위로 부여된 실수 벡터가 훈련 중에 self-attention, Feed Forward, Backpropogation을 통해서 행렬이 갱신되면서 최종 임베딩 벡터가 생성이 되게 됩니다.
+<strong><br>3-1) Input Embedding</strong><br>입력 값이 들어오면 우선 단어별로 Tokenization(토큰화)를 합니다. → Token들을 가지고 37,000개의 subword vocabulary와 매칭시켜 정수 인덱스를 부여합니다. 이 때 37,000개의 vocabulary에 포함되지 않는 token의 경우 &#60;unk&#62;라는 인덱스가 부여됩니다.   → 이 정수 인덱스를 각 token마다 512차원으로 확장시킵니다. 이 512차원의 행렬이 가중치로 작동하기 때문에 처음에는 무작위로 부여된 실수 벡터가 훈련 중에 self-attention, Feed Forward, Backpropogation을 통해서 행렬이 갱신되면서 최종 임베딩 벡터가 생성이 되게 됩니다.
 
 ---
 
 <strong>3-2) Positional Encoding</strong>
 
-<u>Absolute (Learned Absolute Position embedding, 학습 가능 / ConvS2S에서 사용한 방식)</u><br>Absolute는 'token embedding vector \+ position embedding vector'로 구성되어있습니다. 즉, 위치에 대한 정보를 단순히 더해주는 방식입니다. 자원의 특성 상 모델은 최대 sequence length가 정해져있기 때문에 sequence length \* dimension 크기의 embedding matrix를 학습하게 됩니다. 이 embedding matrix는 gradient descent를 통해서 학습하게 됩니다.
+<u>Absolute (Learned Absolute Position embedding, 학습 가능 / ConvS2S에서 사용한 방식)</u><br>Absolute는 'token embedding vector &#43; position embedding vector'로 구성되어있습니다. 즉, 위치에 대한 정보를 단순히 더해주는 방식입니다. 자원의 특성 상 모델은 최대 sequence length가 정해져있기 때문에 sequence length &#42; dimension 크기의 embedding matrix를 학습하게 됩니다. 이 embedding matrix는 gradient descent를 통해서 학습하게 됩니다.
 
-<u>Sinusoid (Fixed Absolute Positional embedding, 학습 불가능 / 초기 Transformer에서 사용된 방식)</u><br>Absolute 방식이 token과 position의 embedding vector를 더해주는 것이라는 방식을 사용하는 것은 동일합니다. 다만 Absolute에서는 순서에 대한 정보를 일일이 입력해주었던 것과 다르게 sinusoid 방식은 sine과 cosine을 사용하여 position embedding vector를 생성합니다. 그리고 sinusoid 방식은 학습을 embedding vector를 학습할 필요가 없습니다. Absolute는 sequence length \* dimension 만큼의 parameter를 갖게 되지만, sinusoid 방식은 parameter 없이 함수는 고정된 상태에서 내부 변수에 따라 다르게 작동하는 것이기 때문에 학습을 해도 크게 도움이 되지 않습니다. 이 말은 곧 훈련 때 보지 못했던 길이에도 확장할 수 있다는 flexibility를 의미합니다. <br>쉽게 생각하면, Absolute 방식은 특정 길이와 특정 차원에 대한 embedding vector를 사용하여 학습하기 때문에 그 범위를 벗어나는 순간 적용이 어려워집니다. 그래서 상대적으로 flexibility가 적용이 가능한 sinusoid를 채택했습니다. 하지만 sinusoid를 사용하더라도 position embedding vector가 우연히 주기로 인해 겹치게 되면 문제가 발생할 수 있다는 것인데, 실질적으로 고차원에서 계산을 하기 때문에 일부 차원이 겹칠 수 있어도 모든 차원이 겹치는 경우는 거의 존재하지 않으며, 차원에 따라서 sine, cosine 함수의 주기가 달라지기 때문에 확률적으로 불가능에 가깝습니다.
+<u>Sinusoid (Fixed Absolute Positional embedding, 학습 불가능 / 초기 Transformer에서 사용된 방식)</u><br>Absolute 방식이 token과 position의 embedding vector를 더해주는 것이라는 방식을 사용하는 것은 동일합니다. 다만 Absolute에서는 순서에 대한 정보를 일일이 입력해주었던 것과 다르게 sinusoid 방식은 sine과 cosine을 사용하여 position embedding vector를 생성합니다. 그리고 sinusoid 방식은 학습을 embedding vector를 학습할 필요가 없습니다. Absolute는 sequence length &#42; dimension 만큼의 parameter를 갖게 되지만, sinusoid 방식은 parameter 없이 함수는 고정된 상태에서 내부 변수에 따라 다르게 작동하는 것이기 때문에 학습을 해도 크게 도움이 되지 않습니다. 이 말은 곧 훈련 때 보지 못했던 길이에도 확장할 수 있다는 flexibility를 의미합니다. <br>쉽게 생각하면, Absolute 방식은 특정 길이와 특정 차원에 대한 embedding vector를 사용하여 학습하기 때문에 그 범위를 벗어나는 순간 적용이 어려워집니다. 그래서 상대적으로 flexibility가 적용이 가능한 sinusoid를 채택했습니다. 하지만 sinusoid를 사용하더라도 position embedding vector가 우연히 주기로 인해 겹치게 되면 문제가 발생할 수 있다는 것인데, 실질적으로 고차원에서 계산을 하기 때문에 일부 차원이 겹칠 수 있어도 모든 차원이 겹치는 경우는 거의 존재하지 않으며, 차원에 따라서 sine, cosine 함수의 주기가 달라지기 때문에 확률적으로 불가능에 가깝습니다.
 
 ![sinusoidal positional encoding](/assets/img/tistory/9/008.png)
 
@@ -99,7 +99,7 @@ Positional Encoding Value example
 
 Scaled dot product Attention
 
-일단 논문에서 Attention을 무엇으로 정의하고 있는지부터 알 필요가 있습니다. <br>Attention은 다음 세 가지 프로세스를 아우르는 말입니다.<br>1\_Query와 Key의 scaled dot product를 통한 유사도 계산<br>2\_Softmax로 가중치를 정규화<br>3\_Value에 가중치를 적용해 최종 출력을 생성하는 것입니다.
+일단 논문에서 Attention을 무엇으로 정의하고 있는지부터 알 필요가 있습니다. <br>Attention은 다음 세 가지 프로세스를 아우르는 말입니다.<br>1&#95;Query와 Key의 scaled dot product를 통한 유사도 계산<br>2&#95;Softmax로 가중치를 정규화<br>3&#95;Value에 가중치를 적용해 최종 출력을 생성하는 것입니다.
 
 해당 논문에서 사용되는 Attention은 정확하게는 Scaled Dot Product Attention입니다.
 
@@ -127,7 +127,7 @@ Scaled Dot Product Attention에서 분모에 위치한 Q와 K transpose의 내�
 
 ---
 
-<strong>3-4) RNN\+Attention과 Transformer에서 사용되는 Attention은 무엇이 다른가?</strong>
+<strong>3-4) RNN&#43;Attention과 Transformer에서 사용되는 Attention은 무엇이 다른가?</strong>
 
 ![Scaled dot product Attention](/assets/img/tistory/9/013.png)
 
@@ -143,17 +143,17 @@ Scaled dot product Attention
 
 Self-Attention Example
 
-Query와 Key\_transpose의 내적을 하고 이를 Key의 차원의 제곱근으로 scaling하여 Attention Score를 구하게 됩니다.<br>Attention Score는 'QK\_t / sqrt(d\_k)'인 것입니다. 왜 scaling을 했을까요?<br>일단 기본적으로 Q, K는 높은 차원의 행렬 벡터입니다. 높은 차원 간 dot product를 하면 분산이 자연스럽게 증가하고 값 자체가 많이 커지게 됩니다. 이 값을 그대로 softmax에 집어넣게 되면 확률 자체가 극단적으로 치우칠 수 밖에 없습니다. 그렇다고 normalization은 '길이'의 단위를 맞추는 것이다 보니 Q와 K의 정보가 사라져 자연어 처리에 적합하지 않을 뿐더러 나중에 Key의 차원으로 나누는 scaling보다 연산 비용이 훨씬 비싼 것입니다.
+Query와 Key&#95;transpose의 내적을 하고 이를 Key의 차원의 제곱근으로 scaling하여 Attention Score를 구하게 됩니다.<br>Attention Score는 'QK&#95;t / sqrt(d&#95;k)'인 것입니다. 왜 scaling을 했을까요?<br>일단 기본적으로 Q, K는 높은 차원의 행렬 벡터입니다. 높은 차원 간 dot product를 하면 분산이 자연스럽게 증가하고 값 자체가 많이 커지게 됩니다. 이 값을 그대로 softmax에 집어넣게 되면 확률 자체가 극단적으로 치우칠 수 밖에 없습니다. 그렇다고 normalization은 '길이'의 단위를 맞추는 것이다 보니 Q와 K의 정보가 사라져 자연어 처리에 적합하지 않을 뿐더러 나중에 Key의 차원으로 나누는 scaling보다 연산 비용이 훨씬 비싼 것입니다.
 
-Q와 K의 내적으로 인해 Q와 K의 내적의 분산은 d\_k가 되고 이를 sqrt(d\_k)로 나눴을 경우 'QK\_t / sqrt(d\_k)'이 Q와 K의 내적으로 서로 연관성이 높은 벡터는 높은 값을 갖게 되고 softmax 안에서 높은 확률을 가지게 되니 V가 Q의 결과에 많은 영향을 받아 출력이 되게 됩니다. 예를 들자면, V를 통해서 "it"이 출력되었을 때 "cat"과의 유사도가 높다고 판단되면 "it"은 "cat"을 가리킨다고 판단할 수 있는 것입니다.
+Q와 K의 내적으로 인해 Q와 K의 내적의 분산은 d&#95;k가 되고 이를 sqrt(d&#95;k)로 나눴을 경우 'QK&#95;t / sqrt(d&#95;k)'이 Q와 K의 내적으로 서로 연관성이 높은 벡터는 높은 값을 갖게 되고 softmax 안에서 높은 확률을 가지게 되니 V가 Q의 결과에 많은 영향을 받아 출력이 되게 됩니다. 예를 들자면, V를 통해서 "it"이 출력되었을 때 "cat"과의 유사도가 높다고 판단되면 "it"은 "cat"을 가리킨다고 판단할 수 있는 것입니다.
 
-<strong>Self-Attention Example</strong>을 보면 알 수 있듯 Query와 Key의 내적, sqrt(d\_k)로  scaling한 값들을 모두 softmax에 집어넣게 되면 총합은 1이 됩니다. 이를 value와 곱을 했을 때 큰 수를 가지는 것들을 파악할 수 있게 됩니다. 각 행렬마다 값을 다 더하면 1이 되는 특성은 softmax를 사용했기 때문에 가능한 것입니다.
+<strong>Self-Attention Example</strong>을 보면 알 수 있듯 Query와 Key의 내적, sqrt(d&#95;k)로  scaling한 값들을 모두 softmax에 집어넣게 되면 총합은 1이 됩니다. 이를 value와 곱을 했을 때 큰 수를 가지는 것들을 파악할 수 있게 됩니다. 각 행렬마다 값을 다 더하면 1이 되는 특성은 softmax를 사용했기 때문에 가능한 것입니다.
 
 근데 Architecture 그림을 보면 중간에 'Mask(opt.)' 과정이 있습니다. Attention 과정은 Encoder 뿐만 아니라 Decoder에서도 발생하는데 Decoder는 Autoregressive(이전까지 생성한 token을 기반으로 다음 토큰을 예측하는 방식) 과정을 통해서 문장을 생성하게 됩니다. 이 때 self-attention은 구조적으로 모든 위치를 동시에 참조할 수 있는 구조이기 때문에 아무런 제약이 없으면 미래 시점의 토큰 정보까지 흘러들어오게 됩니다. 훈련시 masking을 안 하면 미래 정보를 다 알고 있는 상태에서 훔쳐보고 예측을 해버리고 실제로 추론을 해 단어를 생성할 때에는 훈련 때와 조건이 달라져 성능이 떨어지게 됩니다. 그래서 decoder에서 학습을 진행할 때에는 반드시 masked attention은 필수적입니다.
 
-![RNN \+ 'Attention'에서의 Additive Attention](/assets/img/tistory/9/016.png)
+![RNN &#43; 'Attention'에서의 Additive Attention](/assets/img/tistory/9/016.png)
 
-RNN \+ 'Attention'에서의 Additive Attention
+RNN &#43; 'Attention'에서의 Additive Attention
 
 RNN에서 활용되는 Attention은 Additive Attention입니다. 이 Attention을 Bahdanau Attention이라고도 합니다. Transformer에서는 self-attention이기 때문에 동일한 차원에 있어서 dot product 하는 것이 용이했지만 이 아이디어가 제시될 당시 Query는 Decoder, Key는 Encoder에 있었기 때문에 서로 다른 차원의 공간에 있었습니다. 그래서 선형 변환을 통해서 차원을 맞춰서 '더하는' Attention을 사용했기 때문에 Additive Attention입니다.
 
@@ -191,7 +191,7 @@ Residual Connection은 기존 입력 값을 그대로 더해주는 것을 의미
 
 Layer Normalization
 
-x \- E\[x\]는 편차, root(Var\[x\])는 표준편차입니다. epsilon은 단지 분모가 0이 되는 것을 방지하기 위해 들어가있는 파라미터입니다. <br>즉, 기본적인 layernorm의 방향성은 '편차/표준편차', 즉 평균이 0이고 분산이 1이 되게끔하는 표준정규분포(Standard normal distribution)형태를 띠게 됩니다. <br>이제 스케일(γ) 파라미터와 시프트(β)파라미터에 집중해서 보겠습니다.<br>스케일 파라미터는 정규화된 값을 각 차원별로 얼마나 다시 늘리거나 줄일지에 대해 조절하는 곱셈 계수입니다.<br>시프트 파라미터는 정규화된 값을 얼마만큼 이동시키는지에 대한 역할, bias 느낌의 역할을 하는 덧셈 상수입니다.<br>이렇게 하면 원하는만큼 '각 차원의 크기를 조절(γ), 위치를 이동(β)'시켜서 기존 표준정규분포로 인해 지워졌던 분포적 다양성을 복원할 수 있게됩니다. (표준정규분포를 사용하면 평균0, 분산1로 제한되어 모델의 각 뉴런과 feature가 동일한 출력 범위를 갖게 되어 표현의 유연성을 매우 제한하게 됩니다. 이렇게 되면 복잡한 형태나 구조를 모델이 잘 학습하고 표현할 것이라 기대하기 어렵습니다.) 정규화 하기 이전의 분산을 스케일 파라미터에, 평균을 시프트 파라미터에 집어넣어서 연산하게 되면 정규화 이전 분포로 되돌릴 수 있습니다.
+x &#45; E&#91;x&#93;는 편차, root(Var&#91;x&#93;)는 표준편차입니다. epsilon은 단지 분모가 0이 되는 것을 방지하기 위해 들어가있는 파라미터입니다. <br>즉, 기본적인 layernorm의 방향성은 '편차/표준편차', 즉 평균이 0이고 분산이 1이 되게끔하는 표준정규분포(Standard normal distribution)형태를 띠게 됩니다. <br>이제 스케일(γ) 파라미터와 시프트(β)파라미터에 집중해서 보겠습니다.<br>스케일 파라미터는 정규화된 값을 각 차원별로 얼마나 다시 늘리거나 줄일지에 대해 조절하는 곱셈 계수입니다.<br>시프트 파라미터는 정규화된 값을 얼마만큼 이동시키는지에 대한 역할, bias 느낌의 역할을 하는 덧셈 상수입니다.<br>이렇게 하면 원하는만큼 '각 차원의 크기를 조절(γ), 위치를 이동(β)'시켜서 기존 표준정규분포로 인해 지워졌던 분포적 다양성을 복원할 수 있게됩니다. (표준정규분포를 사용하면 평균0, 분산1로 제한되어 모델의 각 뉴런과 feature가 동일한 출력 범위를 갖게 되어 표현의 유연성을 매우 제한하게 됩니다. 이렇게 되면 복잡한 형태나 구조를 모델이 잘 학습하고 표현할 것이라 기대하기 어렵습니다.) 정규화 하기 이전의 분산을 스케일 파라미터에, 평균을 시프트 파라미터에 집어넣어서 연산하게 되면 정규화 이전 분포로 되돌릴 수 있습니다.
 
 요약하자면 Residual Connection을 사용한 이유는 Vanishing Gradient 문제를 해결하기 위해서이고, Layer Normalization을 사용한 이유는 학습의 안정화와 표현의 다양성을 잘 유지하기 위해서입니다.
 
@@ -213,7 +213,7 @@ Output embedding은 decoder가 생성해야 할 타겟 토큰 시퀀스를 벡�
 
 쉽게 생각하면 Encoder는 문제지를 입력으로 넣고 관계를 파악하는 것이고, Decoder는 정답지를 입력으로 넣어 문장을 올바르게 생성할 수 있도록 하는 것입니다.
 
-근데 왜 shifed right, 즉 token을 하나씩 밀어서 사용하는 것일까요?<br>shifted right, 즉 타겟 문장을 한 칸 오른쪽으로 밀어서 현재 토큰 위치 i에는 <strong>이전까지의 토큰</strong>만 디코더 입력에 들어가게 한다는 것입니다. 이렇게 되면 masked attention을 사용할 때 현재 토큰 위치 기준으로 뒤 token attention score를 \- ∞로 만들게 되고 이를 softmax에 집어넣으면 0으로 처리해서 아예 값을 지워버리는 것입니다. (이게 masking입니다.)
+근데 왜 shifed right, 즉 token을 하나씩 밀어서 사용하는 것일까요?<br>shifted right, 즉 타겟 문장을 한 칸 오른쪽으로 밀어서 현재 토큰 위치 i에는 <strong>이전까지의 토큰</strong>만 디코더 입력에 들어가게 한다는 것입니다. 이렇게 되면 masked attention을 사용할 때 현재 토큰 위치 기준으로 뒤 token attention score를 &#45; ∞로 만들게 되고 이를 softmax에 집어넣으면 0으로 처리해서 아예 값을 지워버리는 것입니다. (이게 masking입니다.)
 
 ![Scaled dot product Attention](/assets/img/tistory/9/019.png)
 
@@ -235,7 +235,7 @@ Scaled dot production Attention에 적용하면 괄호 안의 attention score를
 
 Scaled dot product Attention
 
-softmax(QK / sqrt(d\_k))는 Attention Weight라고 부르고 '입력의 i번째 토큰이 t번째 출력 예측에 기여하는 비율'입니다. 그래서 저 비율을 가지고 많이 반영할 Value를 정하게 되는 것입니다.
+softmax(QK / sqrt(d&#95;k))는 Attention Weight라고 부르고 '입력의 i번째 토큰이 t번째 출력 예측에 기여하는 비율'입니다. 그래서 저 비율을 가지고 많이 반영할 Value를 정하게 되는 것입니다.
 
 이후 Feed Forward를 거쳐 다양한 관점에서 표현력이 깊어지는 과정을 거칩니다. 그 디코더가 마지막까지 맥락을 처리하고 나면, 그 결과는 아직 <strong>"다음 단어가 무엇인지"</strong>로 알 수 없는 <strong>추상적인 벡터 표현</strong>입니다.
 
@@ -253,9 +253,9 @@ Linear
 
 Linear, Softmax
 
-h\_t는 decoder의 최종 출력, 즉 다음 단어가 무엇인지 알 수 없는 추상적인 벡터 표현 행렬입니다. W와 곱해지고 bias를 더하게 되면 Transformer의 Vocab에 있는 모든 단어 후보를 점수로 바꿔주는 변환을 하게 됩니다. 이게 Z\_t가 되는 것입니다.
+h&#95;t는 decoder의 최종 출력, 즉 다음 단어가 무엇인지 알 수 없는 추상적인 벡터 표현 행렬입니다. W와 곱해지고 bias를 더하게 되면 Transformer의 Vocab에 있는 모든 단어 후보를 점수로 바꿔주는 변환을 하게 됩니다. 이게 Z&#95;t가 되는 것입니다.
 
-h\_t는 차원이 \[1 \* 512\], W는 \[512 \* 30,000\]입니다. 저 두 행렬의 곱셈을 통해서 \[1 \* 30,000\]의 결과를 도출할 수 있게 됩니다.
+h&#95;t는 차원이 &#91;1 &#42; 512&#93;, W는 &#91;512 &#42; 30,000&#93;입니다. 저 두 행렬의 곱셈을 통해서 &#91;1 &#42; 30,000&#93;의 결과를 도출할 수 있게 됩니다.
 
 이 W는 input embedding matrix와 가중치 공유(weight tying)를 합니다.
 
@@ -265,7 +265,7 @@ b를 0이면 됩니다. 기본적으로 여기서 Linear를 해주는 것이 bai
 
 ---
 
-#### <strong>4\. Output \_ Perplexity / BELU score</strong>
+#### <strong>4&#46; Output &#95; Perplexity / BELU score</strong>
 
 ![](/assets/img/tistory/9/024.png)
 
@@ -279,11 +279,11 @@ b를 0이면 됩니다. 기본적으로 여기서 Linear를 해주는 것이 bai
 
 Transformer는 번역 Task에서 SOTA 성능을 달성하였습니다. 또한 Training Cost을 주목하면, 타 모델 대비 적은 연산량으로 높은 성능을 보여주고 있습니다.
 
-<strong>모델을 변형해서 추가로 실험을 진행했을 때, 다음 다섯 가지 특징을 발견할 수 있었습니다</strong><strong>.</strong><br>1\. (A) Head가 너무 많으면 성능이 떨어진다.<br>2\. (B) Key의 차원이 작아지면 성능이 감소할 수 있다.<br>3\. (C)모델의 크기가 커질수록 성능이 좋아진다.<br>4\. (D) dropout으로 성능을 향상시킬 수 있다.<br>5\. (E) Sinusoid가 아닌 다른 것으로 positional encoding을 해도 성능에 유의미한 차이는 없다.
+<strong>모델을 변형해서 추가로 실험을 진행했을 때, 다음 다섯 가지 특징을 발견할 수 있었습니다</strong><strong>.</strong><br>1&#46; (A) Head가 너무 많으면 성능이 떨어진다.<br>2&#46; (B) Key의 차원이 작아지면 성능이 감소할 수 있다.<br>3&#46; (C)모델의 크기가 커질수록 성능이 좋아진다.<br>4&#46; (D) dropout으로 성능을 향상시킬 수 있다.<br>5&#46; (E) Sinusoid가 아닌 다른 것으로 positional encoding을 해도 성능에 유의미한 차이는 없다.
 
 <strong>마지막 결론입니다.</strong>
 
-1\. 병렬화를 통해서 훨씬 더 빠른 학습이 가능합니다.<br>2\. 번역 task에서 SOTA 성능을 달성했습니다.<br>3\. 다른 task에서의 적용이 기대됩니다. (실제로 transformer는 현재 모든 인공지능 분야에서 사용되고 있습니다.)<br>4\. RNN과 CNN 없이 self-attention을 도입해, 오직 attention에 기반한 Transformer 모델입니다.
+1&#46; 병렬화를 통해서 훨씬 더 빠른 학습이 가능합니다.<br>2&#46; 번역 task에서 SOTA 성능을 달성했습니다.<br>3&#46; 다른 task에서의 적용이 기대됩니다. (실제로 transformer는 현재 모든 인공지능 분야에서 사용되고 있습니다.)<br>4&#46; RNN과 CNN 없이 self-attention을 도입해, 오직 attention에 기반한 Transformer 모델입니다.
 
 ---
 

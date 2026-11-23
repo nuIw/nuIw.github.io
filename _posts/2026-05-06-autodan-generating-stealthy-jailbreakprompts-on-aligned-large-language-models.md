@@ -20,15 +20,15 @@ jailbreak란 prompt를 조작해서 align된 LLM이 제공해서는 안 되는 �
 
 이런 jailbreak 공격에서 scalability issue, stealthiness problems가 무슨 의미일까요?
 
-scalability issue (DAN, Do-Anything-Now)<br>1\. 기존 DAN 방식을 살펴보면 LLM에게 공격을 하기 위해서 사람이 직접 공격을 해야만 했습니다.<br>2\. 사람이 직접 prompt를 사용해서 공격을 하는 형태이고 이것이 취약점이 됩니다. 또한 모델마다 취약점이 다를 수 있기 때문에 모델마다 다르게 prompt를 구성해야합니다. 또한 LLM이 버전이 바뀔 때마다 그 부분을 보완하게 될텐데 그렇다면 기존의 prompt는 폐기되고 새로운 promp를 구성해야합니다.<br>3\. 대신 사람이 직접 prompt를 구성하기 때문에 자연어의 문법이나 유창성은 보장할 수 있습니다.
+scalability issue (DAN, Do-Anything-Now)<br>1&#46; 기존 DAN 방식을 살펴보면 LLM에게 공격을 하기 위해서 사람이 직접 공격을 해야만 했습니다.<br>2&#46; 사람이 직접 prompt를 사용해서 공격을 하는 형태이고 이것이 취약점이 됩니다. 또한 모델마다 취약점이 다를 수 있기 때문에 모델마다 다르게 prompt를 구성해야합니다. 또한 LLM이 버전이 바뀔 때마다 그 부분을 보완하게 될텐데 그렇다면 기존의 prompt는 폐기되고 새로운 promp를 구성해야합니다.<br>3&#46; 대신 사람이 직접 prompt를 구성하기 때문에 자연어의 문법이나 유창성은 보장할 수 있습니다.
 
-stealthiness issue (은밀성 문제)<br>1\. 사람이 직접 prompt를 구성해야해서 비용이 늘어나는 것이 문제라면 prompt를 자동으로 생성해주는 모델을 사용하면 됩니다.<br><br>2\. 대표적으로 GCG(Greedy Coordinate Gradient) 방식이 있습니다.<br>GCG는 LLM의 내부 구조를 알 수 있는 모델의 gradient 정보를 활용해서 jailbreak가 가능한 prompt에 들어갈 토큰을 찾아내는 과정을 안내합니다.<br>GCG의 함수를 통해서 해로운 응답을 생성하도록 유도하는 토큰의 후보를 생성합니다.
+stealthiness issue (은밀성 문제)<br>1&#46; 사람이 직접 prompt를 구성해야해서 비용이 늘어나는 것이 문제라면 prompt를 자동으로 생성해주는 모델을 사용하면 됩니다.<br><br>2&#46; 대표적으로 GCG(Greedy Coordinate Gradient) 방식이 있습니다.<br>GCG는 LLM의 내부 구조를 알 수 있는 모델의 gradient 정보를 활용해서 jailbreak가 가능한 prompt에 들어갈 토큰을 찾아내는 과정을 안내합니다.<br>GCG의 함수를 통해서 해로운 응답을 생성하도록 유도하는 토큰의 후보를 생성합니다.
 
 이게 잘 생성하면 좋겠지만 실질적으로 의미 있는 내용이 아닌 것입니다. 실질적으로 DAN 기반의 prompt는 자연어를 기반으로 하지만 비자연어 기반의 prompt가 LLM safety를 우회하여 jailbreak를 이끌어낼 수 있는 해답이었다는 것입니다.
 
 그래서 DAN은 사람이 만들어내는 prompt로서 자연어 기반의 prompt, GCG는 AI가 만들어내지만 비자연어 기반의 prompt로 구성이 됩니다.
 
-## <strong>기존연구의 limitation \& AutoDAN의 접근방식</strong>
+## <strong>기존연구의 limitation &#38; AutoDAN의 접근방식</strong>
 
 GCG 기반의 prompt 생성은 자동으로 생성이 가능하고 비자연어적 요소로 인해서 jailbreak 공격이 가능하다는 것을 밝혔습니다. 대신에 결국 ‘비자연어적’ 요소로 인한 것이기 때문에 perplexity와 같은 문장의 예측 가능성을 판단할 수 있는 지표를 방어 시스템에 넣게 되면 쉽게 방어가 가능합니다.
 
@@ -92,7 +92,7 @@ Jailbreak는 LLM alignment와 밀접한 관련이 있습니다.
 
 ![](/assets/img/tistory/23/003.png)
 
-최종적으로 토큰 t로 이루어진 입력 T \= \<J, Q\>가 주어졌을 때 jailbreak prompts J를 최적화합니다. 이 J가 입력 토큰들에게 영향을 주게 만들어서 결과적으로 다음에 내뱉을 단어가 ‘물론 답변이 가능합니다’와 같은 단어로 시작하도록 유도하는 확률을 높이는 것입니다.
+최종적으로 토큰 t로 이루어진 입력 T &#61; &#60;J, Q&#62;가 주어졌을 때 jailbreak prompts J를 최적화합니다. 이 J가 입력 토큰들에게 영향을 주게 만들어서 결과적으로 다음에 내뱉을 단어가 ‘물론 답변이 가능합니다’와 같은 단어로 시작하도록 유도하는 확률을 높이는 것입니다.
 
 #### Genetic Algorithms
 
@@ -145,9 +145,9 @@ loss는 낮을수록 좋으니까 확률이 높을수록 fitness가 높은 것�
 
 그래서 일반적으로 타겟 응답을 ‘물론 답변이 가능합니다.’로 시작하게끔 만드는 방식으로 진행합니다. 즉, 타겟 응답을 일관된 시작 부분을 가진 텍스트로 고정함으로써 최적화에 사용되는 공격 손실 함수(attack loss function) 형태로 표현할 수 있게 됩니다.
 
-최종적으로 토큰 t로 이루어진 입력 T \= \<J, Q\>가 주어졌을 때 jailbreak prompts J를 최적화합니다. 이 J가 입력 토큰들에게 영향을 주게 만들어서 결과적으로 다음에 내뱉을 단어가 ‘물론 답변이 가능합니다’와 같은 단어로 시작하도록 유도하는 확률을 높이는 것입니다.
+최종적으로 토큰 t로 이루어진 입력 T &#61; &#60;J, Q&#62;가 주어졌을 때 jailbreak prompts J를 최적화합니다. 이 J가 입력 토큰들에게 영향을 주게 만들어서 결과적으로 다음에 내뱉을 단어가 ‘물론 답변이 가능합니다’와 같은 단어로 시작하도록 유도하는 확률을 높이는 것입니다.
 
-## GENETIC POLICIES (Crossover \& Mutation)
+## GENETIC POLICIES (Crossover &#38; Mutation)
 
 ### AUTODAN-GA
 
@@ -171,7 +171,7 @@ Genetic policies의 핵심은 crossover와 mutation을 설계하는 것입니다
 
 #### Paragraph-level population
 
-예를 들어 N\=50이라면, 같은 Jp를 Algorithm 5에 50번 넣어 50개의 서로 다른 변형을 생성합니다. Algorithm 5의 system prompt가 "You are a helpful and creative assistant who writes well."이고 user 지시가 "길이 변경 없이 수정해줘"이므로, 매번 LLM의 sampling 확률에 의해 조금씩 다른 표현이 나옵니다.
+예를 들어 N&#61;50이라면, 같은 Jp를 Algorithm 5에 50번 넣어 50개의 서로 다른 변형을 생성합니다. Algorithm 5의 system prompt가 "You are a helpful and creative assistant who writes well."이고 user 지시가 "길이 변경 없이 수정해줘"이므로, 매번 LLM의 sampling 확률에 의해 조금씩 다른 표현이 나옵니다.
 
 ![](/assets/img/tistory/23/006.png)
 
@@ -187,13 +187,13 @@ elite prompt를 제외한 나머지 프롬프트에서 fitness score를 기반�
 
 이를 통해서 좋은 prompt는 그대로 살아남기도하고 자식도 낳게 되면서 우수한 특징을 계속 퍼뜨리게 됩니다.
 
-> <strong>요약 예시 (N\=100, 엘리트 20(alpha \= 0.2)개인 경우)</strong>
+> <strong>요약 예시 (N&#61;100, 엘리트 20(alpha &#61; 0.2)개인 경우)</strong>
 
-1. 성적 순위 1\~20등을 <strong>그대로 복사</strong>해서 다음 세대 명단에 올립니다. (20개 확보)
+1. 성적 순위 1&#126;20등을 <strong>그대로 복사</strong>해서 다음 세대 명단에 올립니다. (20개 확보)
 2. 이제 80개의 자손을 더 만들어야 합니다.
-3. 1\~100등 전체를 모아놓고 점수대로 확률을 줍니다. (당연히 1\~20등이 당첨 확률이 높겠죠?)
+3. 1&#126;100등 전체를 모아놓고 점수대로 확률을 줍니다. (당연히 1&#126;20등이 당첨 확률이 높겠죠?)
 4. 당첨된 부모들을 섞어서 <strong>새로운 자식 80개</strong>를 만듭니다. ◦ 이때 1등과 2등이 부모로 뽑혀서 섞일 수도 있고, 1등과 50등이 섞일 수도 있습니다.
-5. 복사본 20개 \+ 새 자식 80개 \= 총 100개의 다음 세대 완성!
+5. 복사본 20개 &#43; 새 자식 80개 &#61; 총 100개의 다음 세대 완성!
 
 #### Sentence-level: momentum word scoring
 
